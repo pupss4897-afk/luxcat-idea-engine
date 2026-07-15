@@ -114,50 +114,20 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-const topicBanks={
- fans:[
-  '{industry}最常被誤會的 3 件事','只有做過{industry}的人才懂的崩潰瞬間','新手接觸{industry}第一個最容易踩的雷','你以為這是省錢其實在{industry}裡更花錢','做{industry}前後我最大的觀念改變','如果早知道這件事我做{industry}會少走很多彎路','測測看：你是哪一種{industry}客人？','外行看熱鬧內行做{industry}其實先看這裡','關於{industry}大家最不敢承認的一件事','為什麼越認真的人在{industry}越容易犯這個錯','朋友問我做{industry}到底值不值得我的真心話','挑戰用 30 秒講懂一個{industry}冷知識'
- ],
- expert:[
-  '別再只看價格：挑選{industry}服務真正要看這 3 點','{industry}不是越貴越好差別其實在這裡','專業人士判斷{industry}好壞第一眼先看什麼？','一分鐘破解 3 個常見的{industry}迷思','同樣是{industry}效果差很多的真正原因','遇到這 3 種情況先不要急著做{industry}','{industry}新手必懂的 5 個行業名詞','客人最常問我的{industry}問題一次說清楚','網路上最常見的{industry}錯誤教學','從業者不一定會主動告訴你的{industry}細節','{industry}做對與做錯結果差在哪裡？','一張圖教你判斷自己適不適合{industry}'
- ],
- lead:[
-  '留言「檢查」領取你的{industry}自我檢測表','你有這 3 個狀況嗎？可能該重新檢查{industry}方式','不知道自己適不適合{industry}？先做這個測驗','我整理了新手最需要的{industry}懶人包','留言你的情況我幫你判斷下一步','做{industry}前先回答自己這 3 個問題','這份{industry}清單幫你少花冤枉錢','你是哪一型？30 秒找到適合的{industry}方向','免費送你一份{industry}避雷表','如果你正在猶豫{industry}先把這支收藏起來','把你的行業／狀況留在留言我幫你出一題','{industry}新手工具包我把重點整理好了'
- ],
- sell:[
-  '客人原本最困擾的問題是怎麼被解決的？','我為什麼最後選擇用這個{industry}方案？','不是每個人都需要但這 3 種人很適合','實際使用前後我最有感的不是你以為的那一點','如果你也遇到這個{industry}問題可以先這樣做','同類型選擇很多我最後留下它的原因','把{industry}融入日常後最省事的地方','客人一開始很猶豫後來為什麼改變想法？','別急著買先看自己有沒有這 3 個需求','這不是神奇效果是把{industry}基本功做好','我不會推薦所有人但這種情況我會主動提','一個真實的{industry}使用情境給你看'
- ]
-};
-
-const hookBanks={
- fans:['我原本以為這很正常直到做了{industry}才發現…','只有做過{industry}的人才知道這有多崩潰','先不要滑！你可能也一直做錯這件事','我敢說90% 的新手都誤會了','如果你也是{industry}族群這支真的要存','你以為省到了其實後面會花更多','來測一下你是不是也中這一型？','這件事我忍很久了今天一定要講'],
- expert:['先講結論：這個{industry}觀念真的錯很久了','遇到這種情況專業的人第一步不會急著做','同樣是{industry}為什麼結果可以差這麼多？','別只問多少錢你真正該問的是這三件事','做{industry}之前先看你有沒有這個條件','今天用 30 秒破解一個最常見的迷思','外行看表面內行其實都先看這裡','如果有人這樣跟你說先不要急著相信'],
- lead:['留言「我要」我把完整清單直接給你','你有這三個狀況嗎？先別急著花錢','不知道自己適不適合？30 秒測給你看','我把新手最容易踩的雷整理成一張表','先把這支存起來下次一定用得到','把你的狀況留在留言我告訴你下一步','這份清單不一定公開很久先拿再說','如果你正在猶豫先回答這三個問題'],
- sell:['我本來沒有打算分享但這個變化太明顯了','不是要你現在買先看你是不是這三種人','同類型我試過很多最後留下它只有一個原因','客人一開始也不相信直到她發現這件事','真正讓我有感的反而不是大家一直講的那點','如果你也有這個困擾我會先建議你這樣做','這不是業配式神奇效果是一個真實使用情境','先說缺點它真的不是每個人都適合']
-};
-
-const tips={fans:'先讓觀眾感覺「你在說我」再補知識；共鳴比自我介紹更容易留下人',expert:'一支影片只糾正一個觀念並用具體案例證明不要一次把整堂課塞進 30 秒',lead:'贈品名稱要具體CTA 只留一個動作；「留言關鍵字」會比「歡迎私訊」更清楚',sell:'先講使用情境與選擇理由再出現商品；觀眾不討厭銷售只討厭還沒被理解就被推銷'};
-const subtitles={fans:'高共鳴 × 分享型',expert:'觀念建立 × 專業型',lead:'互動引導 × 名單型',sell:'情境轉換 × 銷售型'};
-/* ===== 使用次數 / 解鎖 ===== */
-const UNLOCK_CODE='LUXCAT2026';   // ← 解鎖碼：要改就改這一行
-const MAX_FREE=1;                 // ← 免費使用次數
-function isUnlocked(){return localStorage.getItem('luxcat_unlocked')==='1'}
-function usedCount(){return parseInt(localStorage.getItem('luxcat_uses')||'0',10)}
-function setUsed(n){localStorage.setItem('luxcat_uses',String(n))}
-function remaining(){return Math.max(0,MAX_FREE-usedCount())}
-function updateHint(){const h=document.querySelector('#hint');if(!h)return;h.textContent=isUnlocked()?'已解鎖・無限使用・離線可用':`免費體驗還剩 ${remaining()} 次・無需登入・離線可用`}
-function openLock(){document.querySelector('#lock').hidden=false;setTimeout(()=>document.querySelector('#unlockInput').focus(),60)}
-function closeLock(){document.querySelector('#lock').hidden=true}
-function tryUnlock(){const v=document.querySelector('#unlockInput').value.trim();if(v&&v.toUpperCase()===UNLOCK_CODE.toUpperCase()){localStorage.setItem('luxcat_unlocked','1');closeLock();updateHint();toast('解鎖成功・無限使用 ✨')}else{toast('解鎖碼不正確');document.querySelector('#unlockInput').select()}}
-
+const API='https://fragrant-morning-2320luxcat-engine.pupss4897.workers.dev/';
 let activeGoal='fans',activeTab='topics',seed=0,last={topics:[],hooks:[]};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-function sample(arr,n,offset){return [...arr].sort((a,b)=>hash(a+offset)-hash(b+offset)).slice(0,n)}
-function hash(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h)}
 function industry(){return $('#industry').value.trim()}
-function fill(s){return s.replaceAll('{industry}',industry())}
-function generate(){if(!industry()){toast('先告訴我你是什麼行業');$('#industry').focus();return}if(!isUnlocked()&&usedCount()>=MAX_FREE){openLock();return}seed++;last.topics=sample(topicBanks[activeGoal],9,industry()+seed).map(fill);last.hooks=sample(hookBanks[activeGoal],6,industry()+seed).map(fill);activeTab='topics';$('#empty').style.display='none';$('#results').classList.add('show');$('#resultTitle').textContent=industry()+'｜短影音內容地圖';$('#resultMeta').textContent=subtitles[activeGoal].toUpperCase();$('#coachTip').textContent=tips[activeGoal];$$('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab==='topics'));render();if(innerWidth<821)$('#results').scrollIntoView({behavior:'smooth',block:'start'});if(!isUnlocked())setUsed(usedCount()+1);updateHint()}
-function render(){const data=activeTab==='topics'?last.topics:last.hooks;$('#resultList').innerHTML=data.map((x,i)=>`<article class="result-card ${activeTab==='hooks'?'hook-card':''}"><span class="number">${String(i+1).padStart(2,'0')}</span><span><b>${x}</b><small>${activeTab==='topics'?'可延伸：痛點・錯誤・案例・解法':'前三秒說完接著立刻補原因或畫面證據'}</small></span><button class="copy" data-copy="${i}" aria-label="複製">□</button></article>`).join('')}
+function savedCode(){return localStorage.getItem('luxcat_code')||''}
+function isUnlocked(){return !!savedCode()}
+function updateHint(){const h=$('#hint');if(!h)return;h.textContent=isUnlocked()?'已解鎖・無限使用':'免費體驗 1 次・用完輸入解鎖碼繼續'}
+function openLock(){$('#lock').hidden=false;setTimeout(()=>$('#unlockInput').focus(),60)}
+function closeLock(){$('#lock').hidden=true}
+async function callAPI(code){const res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({industry:industry(),goal:activeGoal,seed:++seed,code:code||''})});return res.json()}
+function show(data){last.topics=data.topics||[];last.hooks=data.hooks||[];activeTab='topics';$('#empty').style.display='none';$('#results').classList.add('show');$('#resultTitle').textContent=industry()+'｜短影音內容地圖';$('#resultMeta').textContent=(data.subtitle||'').toUpperCase();$('#coachTip').textContent=data.tip||'';$$('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab==='topics'));render();if(innerWidth<821)$('#results').scrollIntoView({behavior:'smooth',block:'start'})}
+async function generate(){if(!industry()){toast('先告訴我你是什麼行業');$('#industry').focus();return}const btn=$('#generate'),old=btn.innerHTML;btn.disabled=true;btn.innerHTML='產生中…';try{const data=await callAPI(savedCode());if(data.error){toast('先告訴我你是什麼行業');return}if(data.locked){openLock();return}if(data.badCode){localStorage.removeItem('luxcat_code');updateHint();openLock();toast('解鎖碼已失效，請重新輸入');return}show(data)}catch(e){toast('連線失敗，請檢查網路再試一次')}finally{btn.disabled=false;btn.innerHTML=old}}
+async function tryUnlock(){const v=$('#unlockInput').value.trim();if(!v){toast('請輸入解鎖碼');return}if(!industry())$('#industry').value='範例';const b=$('#unlockBtn');b.disabled=true;try{const data=await callAPI(v);if(data.badCode){toast('解鎖碼不正確');$('#unlockInput').select();return}if(data.error){toast('請先輸入行業');return}localStorage.setItem('luxcat_code',v);closeLock();updateHint();if(data.topics)show(data);toast('解鎖成功・無限使用 ✨')}catch(e){toast('連線失敗，請稍後再試')}finally{b.disabled=false}}
+function render(){const data=activeTab==='topics'?last.topics:last.hooks;$('#resultList').innerHTML=(data||[]).map((x,i)=>`<article class="result-card ${activeTab==='hooks'?'hook-card':''}"><span class="number">${String(i+1).padStart(2,'0')}</span><span><b>${x}</b><small>${activeTab==='topics'?'可延伸：痛點・錯誤・案例・解法':'前三秒說完接著立刻補原因或畫面證據'}</small></span><button class="copy" data-copy="${i}" aria-label="複製">□</button></article>`).join('')}
 async function copyText(t){try{await navigator.clipboard.writeText(t);toast('已複製可以去寫腳本了 ⚡')}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();toast('已複製可以去寫腳本了 ⚡')}}
 let timer;function toast(t){$('#toast').textContent=t;$('#toast').classList.add('show');clearTimeout(timer);timer=setTimeout(()=>$('#toast').classList.remove('show'),1800)}
 $$('.goal').forEach(b=>b.addEventListener('click',()=>{activeGoal=b.dataset.goal;$$('.goal').forEach(x=>x.classList.toggle('active',x===b))}));
